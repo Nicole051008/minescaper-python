@@ -1,26 +1,28 @@
 def create_mine_board(grid_size, mine_positions):
 
-    """ 
-    This functions is used to creat a mine board
-    input:
-        grid_size: integer represent the length of the mine board
-        mine_position: a list of positions tuple (x,y). x=row, y=column
-    return:
-        a 2d list mine board which contian -1 represent position of mine 
-        and safe cells  around mine will accumulate 1.
+   """
+    Create a mine board based on the given mine positions.
+
+    Args:
+        grid_size: The size of the square mine board.
+        mine_positions: A list of (row, col) tuples representing mine positions.
+
+    Returns:
+        A 2D list where mines are represented by -1 and each safe cell
+        contains the number of adjacent mines.
     """
     
     # create a 2D list and assign 0 to all position
-    board_list = [[0 for x in range(grid_size)] for y in range(grid_size)]
+    board = [[0 for _ in range(grid_size)] for _ in range(grid_size)]
 
-    # put -1 in the position of mine in the board
-    for vertical, horizontal in mine_positions:
-        board_list[vertical][horizontal] = -1
+   # Place mines on the board
+    for row, col in mine_positions:
+        board[row][col] = -1
 
     # find mines and accumulate 1 to all adjacent num that not equal to -1
     for x in range(grid_size):
         for y in range(grid_size):
-            if board_list[x][y] == -1:
+            if board[x][y] == -1:
                 for row in range(x - 1, x + 2):
                     for column in range(y - 1, y + 2):
                         # skip original position with mine
@@ -28,7 +30,7 @@ def create_mine_board(grid_size, mine_positions):
                             continue
                         # if range not out of board, accumulate 1
                         if 0 <= row < grid_size and 0 <= column < grid_size:
-                            if board_list[row][column] != -1:
-                                board_list[row][column] += 1
+                            if board[row][column] != -1:
+                                board[row][column] += 1
     # return 2d list board
-    return board_list
+    return board
