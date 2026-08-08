@@ -34,3 +34,8 @@ def create_mine_board(grid_size, mine_positions):
                                 board[row][column] += 1
     # return 2d list board
     return board
+
+# Test
+if __name__ == "__main__":
+    board = create_mine_board(3, [(0, 1), (1, 2)])
+    print(board)
